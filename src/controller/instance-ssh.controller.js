@@ -43,6 +43,7 @@ class InstanceSSHEventsController {
     class CommandEvent {
       eventName = "";
       command = "";
+      terminalType = "";
 
       constructor(plainObject) {
         Object.assign(this, plainObject);
