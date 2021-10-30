@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="value" />
+    <button onClick="sendInput()">Send</button>
+    <pre id="result" style="overflow-y: auto; height: 400px"></pre>
+
+    <script>
+      let hash = Date.now();
+      window.onload = () => {
+        const source = new EventSource(
+          "http://127.0.0.1:9000/ssh-output-events",
+          { withCredentials: false }
+        );
+
+        source.onmessage = function (event) {
+          const data = event.data;
+
+          let t = JSON.parse(data).data;
+
+          const h = document.getElementById("result");
+          h.innerHTML = t;
+
+          h.scrollTo = h.scrollHeight;
+        };
+
+        // setInterval(() => {
+        //   document.getElementById("result").scrollTop =
+        //     document.getElementById("result").scrollHeight;
+        // }, 200);
+      };
+
+      function sendInput() {
+        const value = document.getElementById("value").value;
+
+        fetch("http://localhost:9000/instance-ssh-events", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            eventName: "command",
+            command: value,
+            _id: hash,
+          }),
+        }).then((x) => {});
+      }
+    </script>
+  </body>
+</html>
