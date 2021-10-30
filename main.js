@@ -36,7 +36,7 @@ app.get("/health", (req, res, next) => {
   res.send("okay");
 });
 
-app.listen(process.env.NODE_PORT, () => {
+app.listen(process.env.NODE_PORT || 9000, () => {
   console.log(process.env.SECRET_KEY);
-  console.log("server is running " + process.env.NODE_PORT);
+  console.log("server is running " + process.env.NODE_PORT || 9000);
 });

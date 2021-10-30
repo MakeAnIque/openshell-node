@@ -22,7 +22,7 @@ class Terminal {
   }
 
   async init() {
-    ptyProcess.on("data", (data) => {
+    this.ptyProcess.on("data", (data) => {
       if (this.filterSameNodePty(data)) {
         return;
       }
