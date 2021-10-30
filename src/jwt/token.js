@@ -3,7 +3,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const readConfigFile = require("../utils/config-file.util");
 
 class JsonwebToken {
-  config = null;
+  config;
   constructor() {
     this.init();
   }
@@ -13,7 +13,7 @@ class JsonwebToken {
   }
 
   async verify(token) {
-    return await jsonwebtoken.verify(token, this.config.key);
+    return await jsonwebtoken.verify(token, process.env.SECRET_KEY);
   }
 }
 

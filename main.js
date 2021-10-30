@@ -35,7 +35,8 @@ app.get("/ssh-output-events", eventsHandler);
 app.get("/health", (req, res, next) => {
   res.send("okay");
 });
-console.log(config.PORT);
-app.listen(config.PORT, () => {
-  console.log("server is running");
+
+app.listen(process.env.NODE_PORT, () => {
+  console.log(process.env.SECRET_KEY);
+  console.log("server is running " + process.env.NODE_PORT);
 });
